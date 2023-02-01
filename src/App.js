@@ -58,7 +58,7 @@ function useSolanaAccount() {
   const [account, setAccount] = useState(null);
   const [transactions, setTransactions] = useState(null);
   const { connection } = useConnection();
-  const { publicKey } = useWallet();
+  const { publicKey, disconnect } = useWallet();
 
   const init = useCallback(async () => {
     if (publicKey) {
