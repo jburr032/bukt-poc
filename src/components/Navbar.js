@@ -14,6 +14,7 @@ import {
   MenuDivider,
   useDisclosure,
   Stack,
+  Text,
 } from '@chakra-ui/react';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -26,22 +27,24 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { useDispatch } from 'react-redux';
 import { userDataActions } from '../redux/userDataSlice';
 
-const Links = ['Feed'];
+const Links = ['home', 'feed'];
 
-const NavLink = ({ children }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={'md'}
-    _hover={{
-      textDecoration: 'none',
-      color: 'black',
-    }}
-    color="brand.text"
-    href={'#'}
-  >
-    {children}
-  </Link>
+const NavLink = ({ link }) => (
+  <Text textTransform="capitalize">
+    <Link
+      px={2}
+      py={1}
+      rounded={'md'}
+      _hover={{
+        textDecoration: 'none',
+        color: 'black',
+      }}
+      color="brand.text"
+      href={`/${link}`}
+    >
+      {link}
+    </Link>
+  </Text>
 );
 
 export default function Navbar() {
@@ -101,7 +104,9 @@ export default function Navbar() {
               display={{ base: 'none', md: 'flex' }}
             >
               {Links.map(link => (
-                <NavLink key={link}>{link}</NavLink>
+                <NavLink key={link} link={link}>
+                  {link}
+                </NavLink>
               ))}
             </HStack>
           </HStack>

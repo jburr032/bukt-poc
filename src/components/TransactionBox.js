@@ -20,7 +20,7 @@ import {
   AiFillEyeInvisible,
 } from 'react-icons/ai';
 
-export default function TransactionBox({ t, username, index }) {
+export default function TransactionBox({ t, username, isFeed = false }) {
   const [showCommentInput, setCommentInput] = useState(false);
   const [comment, setComment] = useState(t.comment);
   const { register, handleSubmit } = useForm();
@@ -88,7 +88,7 @@ export default function TransactionBox({ t, username, index }) {
           )}
           <Flex>
             <Text>{username}</Text>
-            {!showCommentInput && (
+            {!isFeed && !showCommentInput && (
               <div style={{ width: '100%', float: 'right' }}>
                 <Flex float="right">
                   {comment ? (

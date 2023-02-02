@@ -19,7 +19,7 @@ import { useSelector } from 'react-redux';
 import { BiCalendar } from 'react-icons/bi';
 import Follower from '../components/Follower';
 
-const StatusesTab = () => {
+export const StatusesTab = () => {
   const [tx, setTx] = useState([]);
   const [walletAddr, setWalletAddr] = useState('');
   const accountAddress = 'C1jyTNPEonQsuXu5yB5ZSCgbwUVe6FoRtatR67qWiCwc';

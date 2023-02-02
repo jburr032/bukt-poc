@@ -12,6 +12,7 @@ import Welcome from './components/welcome/Welcome';
 import Login from './components/Login';
 import { Provider } from 'react-redux';
 import store from './redux/Store';
+import FeedPage from './pages/Feedpage';
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
       {
         path: '/home',
         element: <HomePage />,
+        //errorElement: <ErrorPage />,
+      },
+      {
+        path: '/feed',
+        element: <FeedPage />,
         //errorElement: <ErrorPage />,
       },
     ],

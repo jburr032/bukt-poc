@@ -4,6 +4,7 @@ const theme = extendTheme({
   colors: {
     brand: {
       text: '#42bcb8',
+      border: '#E2E8F0',
     },
   },
 });
