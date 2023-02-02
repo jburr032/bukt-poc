@@ -26,12 +26,14 @@ import { useNavigate } from 'react-router-dom';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { useDispatch } from 'react-redux';
 import { userDataActions } from '../redux/userDataSlice';
+import { Link as RouteLink } from 'react-router-dom';
 
 const Links = ['home', 'feed'];
 
 const NavLink = ({ link }) => (
   <Text textTransform="capitalize">
     <Link
+      as={RouteLink}
       px={2}
       py={1}
       rounded={'md'}
@@ -40,7 +42,7 @@ const NavLink = ({ link }) => (
         color: 'black',
       }}
       color="brand.text"
-      href={`/${link}`}
+      to={`/${link}`}
     >
       {link}
     </Link>
