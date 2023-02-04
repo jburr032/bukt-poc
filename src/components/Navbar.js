@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Box,
   Flex,
   Avatar,
-  HStack,
   Link,
-  IconButton,
   Button,
   Menu,
   MenuButton,
@@ -16,8 +14,6 @@ import {
   Stack,
   Text,
 } from '@chakra-ui/react';
-import { GiHamburgerMenu } from 'react-icons/gi';
-import { AiOutlineClose } from 'react-icons/ai';
 import {
   WalletDisconnectButton,
   WalletMultiButton,
@@ -27,33 +23,55 @@ import { useWallet } from '@solana/wallet-adapter-react';
 import { useDispatch } from 'react-redux';
 import { userDataActions } from '../redux/userDataSlice';
 import { Link as RouteLink } from 'react-router-dom';
+import { MdRssFeed } from 'react-icons/md';
+import { AiFillHome } from 'react-icons/ai';
 
 const Links = ['home', 'feed'];
 
-const NavLink = ({ link }) => (
-  <Text textTransform="capitalize">
-    <Link
-      as={RouteLink}
-      px={2}
-      py={1}
-      rounded={'md'}
+const navLinkIcons = {
+  home: <AiFillHome />,
+  feed: <MdRssFeed />,
+};
+
+const NavLink = ({ link }) => {
+  const navigate = useNavigate();
+
+  return (
+    <Button
+      w="141px"
+      marginBottom="15px"
+      textTransform="capitalize"
+      fontSize="18px"
+      variant="ghost"
       _hover={{
         textDecoration: 'none',
         color: 'black',
       }}
       color="brand.text"
-      to={`/${link}`}
+      onClick={() => navigate(`/${link}`)}
     >
-      {link}
-    </Link>
-  </Text>
-);
+      {navLinkIcons[link]}
+      <Text marginLeft="10px">{link}</Text>
+    </Button>
+  );
+};
 
 export default function Navbar() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen } = useDisclosure();
   let { publicKey, disconnect } = useWallet();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [userData, setUserData] = useState({
+    username: '',
+  });
+
+  useEffect(() => {
+    const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+
+    if (Object.keys(userData).length > 0) {
+      setUserData(userData);
+    }
+  }, []);
 
   const handleLogout = async (logout = true) => {
     try {
@@ -77,61 +95,54 @@ export default function Navbar() {
 
   return (
     <>
-      <Box
-        bg="white"
-        px={4}
-        position="sticky"
-        top={0}
-        zIndex={20}
-        boxShadow="0px 8px 11px -11px rgb(0 0 0 / 49%)"
-      >
-        <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <IconButton
-            size={'md'}
-            icon={isOpen ? <AiOutlineClose /> : <GiHamburgerMenu />}
-            aria-label={'Open Menu'}
-            display={{ md: 'none' }}
-            onClick={isOpen ? onClose : onOpen}
-          />
-          <HStack spacing={8} alignItems={'center'}>
-            <Box>BUKT</Box>
-            {!publicKey ? (
-              <WalletMultiButton />
-            ) : (
-              <WalletDisconnectButton onClick={() => handleLogout(false)} />
-            )}
-            <HStack
-              as={'nav'}
-              spacing={4}
-              display={{ base: 'none', md: 'flex' }}
+      <Box bg="white">
+        <div style={{ padding: '10px', height: '50px' }}>
+          <Text fontWeight="bold" fontSize="20px">
+            BUKT
+          </Text>
+        </div>
+        {Links.map(link => (
+          <Stack>
+            <NavLink key={link} link={link}>
+              {link}
+            </NavLink>
+          </Stack>
+        ))}
+        <div style={{ margin: '10px 0px' }}>
+          {!publicKey ? (
+            <WalletMultiButton />
+          ) : (
+            <WalletDisconnectButton onClick={() => handleLogout(false)} />
+          )}
+        </div>
+
+        <Flex>
+          <Menu>
+            <MenuButton
+              as={Button}
+              position="absolute"
+              bottom="0px"
+              rounded={'full'}
+              variant={'link'}
+              cursor={'pointer'}
+              minW={0}
+              width="285px"
             >
-              {Links.map(link => (
-                <NavLink key={link} link={link}>
-                  {link}
-                </NavLink>
-              ))}
-            </HStack>
-          </HStack>
-          <Flex alignItems={'center'}>
-            <Menu>
-              <MenuButton
-                as={Button}
-                rounded={'full'}
-                variant={'link'}
-                cursor={'pointer'}
-                minW={0}
-              >
-                <Avatar size={'sm'} src="https://bit.ly/kent-c-dodds" />
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Account</MenuItem>
-                <MenuDivider />
-                <MenuItem onClick={handleLogout}>
-                  Logout & Disconnect Wallet
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          </Flex>
+              <Flex>
+                <Avatar size={'md'} src="https://bit.ly/kent-c-dodds" />
+                <Text lineHeight="50px" marginLeft="5px">
+                  {userData.username}
+                </Text>
+              </Flex>
+            </MenuButton>
+            <MenuList>
+              <MenuItem>Account</MenuItem>
+              <MenuDivider />
+              <MenuItem onClick={handleLogout}>
+                Logout & Disconnect Wallet
+              </MenuItem>
+            </MenuList>
+          </Menu>
         </Flex>
 
         {isOpen ? (

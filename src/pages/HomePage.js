@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import ChainService from '../services/ChainServices';
 import {
-  Grid,
-  GridItem,
   Image,
   Text,
   Center,
@@ -18,6 +16,7 @@ import { selectPublicKey } from '../redux/userDataSlice';
 import { useSelector } from 'react-redux';
 import { BiCalendar } from 'react-icons/bi';
 import Follower from '../components/Follower';
+import GridLayout from '../components/GridLayout';
 
 export const StatusesTab = () => {
   const [tx, setTx] = useState([]);
@@ -56,7 +55,7 @@ export const StatusesTab = () => {
         <div
           style={{
             overflow: 'scroll',
-            height: '100vh',
+            height: '44vh',
           }}
         >
           {tx.map((t, i) => (
@@ -104,13 +103,13 @@ const ProfileTabs = () => {
         </Tab>
       </TabList>
       <TabPanels>
-        <TabPanel padding={0} h="100vh">
+        <TabPanel padding={0} h="44vh">
           <StatusesTab />
         </TabPanel>
-        <TabPanel h="100vh">
+        <TabPanel h="44vh">
           <Follower followBtn={false} />
         </TabPanel>
-        <TabPanel h="100vh">
+        <TabPanel h="44vh">
           <Follower />
         </TabPanel>
       </TabPanels>
@@ -130,14 +129,9 @@ export default function HomePage() {
     }
   }, []);
   return (
-    <>
-      <Grid templateColumns="repeat(4, 1fr)" gap={1} padding="0px 50px">
-        <GridItem colSpan={1} />
-        <GridItem
-          colSpan={2}
-          borderLeft="0.5px solid #E2E8F0"
-          borderRight="0.5px solid #E2E8F0"
-        >
+    <GridLayout
+      center={
+        <>
           <div
             style={{ height: '155px', backgroundColor: 'rgb(207, 217, 222)' }}
           />
@@ -146,7 +140,7 @@ export default function HomePage() {
           <Image
             position="absolute"
             borderRadius="full"
-            top="175px"
+            top="110px"
             border="5px solid white"
             h="130px"
             name="Kent Dodds"
@@ -163,9 +157,9 @@ export default function HomePage() {
             </Text>
           </Flex>
           <ProfileTabs />
-        </GridItem>
-        <GridItem colSpan={1} />
-      </Grid>
-    </>
+        </>
+      }
+      rightSide={<></>}
+    />
   );
 }

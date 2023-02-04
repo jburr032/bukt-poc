@@ -4,7 +4,7 @@ import {
   FormHelperText,
   Input,
   InputGroup,
-  InputRightElement,
+  Text,
   Button,
   Container,
 } from '@chakra-ui/react';
@@ -42,7 +42,7 @@ export default function UsernameForm({ formHelperText, submitBtnText }) {
           </InputGroup>
           <FormHelperText>{formHelperText}</FormHelperText>
         </FormControl>
-        <FormControl isRequired>
+        <FormControl isRequired marginBottom="10px">
           <FormLabel>Password</FormLabel>
           <InputGroup size="md">
             <Input
@@ -57,6 +57,7 @@ export default function UsernameForm({ formHelperText, submitBtnText }) {
           {submitBtnText}
         </Button>
       </form>
+      <Text fontWeight="bold">Do not put in any actual passwords!</Text>
     </Container>
   );
 }
