@@ -10,6 +10,7 @@ import {
   Box,
   Grid,
   GridItem,
+  Link,
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import GridLayout from '../components/GridLayout';
@@ -17,7 +18,7 @@ import TransactionBox from '../components/TransactionBox';
 import ChainService from '../services/ChainServices';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Follower from '../components/Follower';
-var randomWords = require('random-words');
+import randomWords from 'random-words';
 
 export default function FeedPage() {
   const [tx, setTx] = useState([]);
@@ -28,9 +29,18 @@ export default function FeedPage() {
     setTx(
       data.data.map(tx => ({
         ...tx,
-        comment: `${randomWords({ exactly: 5, join: ' ' })} #${randomWords({
-          exactly: 1,
-        })}`,
+        comment: (
+          <Text>
+            {randomWords({ exactly: 5, join: ' ' })}
+            {'  '}
+            <Link color="brand.text">
+              #
+              {randomWords({
+                exactly: 1,
+              })}
+            </Link>
+          </Text>
+        ),
       }))
     );
   };

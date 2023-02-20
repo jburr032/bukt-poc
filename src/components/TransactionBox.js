@@ -31,7 +31,7 @@ export default function TransactionBox({ t, username, isFeed = false }) {
   };
 
   return (
-    <Box borderBottom="0.5px solid #E2E8F0" padding="15px">
+    <Box className="tx-box" borderBottom="0.5px solid #E2E8F0" padding="15px">
       <Flex>
         <Avatar
           size="md"
@@ -83,84 +83,87 @@ export default function TransactionBox({ t, username, isFeed = false }) {
               </InputGroup>
             </form>
           )}
-          {comment && !showCommentInput && (
-            <Text marginBottom="10px">{comment}</Text>
-          )}
-          <Flex>
-            <Text>{username}</Text>
-            {!isFeed && !showCommentInput && (
-              <div style={{ width: '100%', float: 'right' }}>
-                <Flex float="right">
-                  {comment ? (
-                    <Tooltip label="Visible - remove status to hide tx">
-                      <div style={{ paddingTop: '4px' }}>
-                        <AiFillEye float="right" />
-                      </div>
-                    </Tooltip>
-                  ) : (
-                    <Tooltip label="Not visible - give this tx a status">
-                      <div style={{ paddingTop: '4px' }}>
-                        <AiFillEyeInvisible float="right" />
-                      </div>
-                    </Tooltip>
-                  )}
-
-                  <IconButton
-                    marginLeft="10px"
-                    float="right"
-                    h="23px"
-                    minWidth="28px"
-                    colorScheme="blue"
-                    aria-label="Search database"
-                    icon={<FiEdit2 />}
-                    onClick={() => setCommentInput(prev => !prev)}
-                  />
-                </Flex>
-              </div>
-            )}
-          </Flex>
-          <Box>
-            <SimpleGrid>
-              <Text fontWeight="bold">Hash:</Text>
-              <Text
-                textOverflow="ellipsis"
-                overflow="hidden"
-                whiteSpace="nowrap"
-              >
-                {t.txHash}
-              </Text>
-            </SimpleGrid>
-            <SimpleGrid>
-              <Text fontWeight="bold">From:</Text>
-              <Text
-                textOverflow="ellipsis"
-                overflow="hidden"
-                whiteSpace="nowrap"
-              >
-                {t.src}
-              </Text>
-            </SimpleGrid>
-            <SimpleGrid>
-              <Text fontWeight="bold">To: </Text>
-              <Text
-                textOverflow="ellipsis"
-                overflow="hidden"
-                whiteSpace="nowrap"
-              >
-                {t.dst}
-              </Text>
-            </SimpleGrid>
+          {comment && !showCommentInput && comment}
+          <div className="tx-data-box">
             <Flex>
-              <Text fontWeight="bold" marginRight="13px">
-                Amount:{' '}
-              </Text>
-              <Text marginRight="13px">{t.txNumberSolTransfer}</Text>
-              <Text fontWeight="bold" marginRight="13px">
-                Fee:{' '}
-              </Text>
-              <Text>{t.fee}</Text>
+              <Text>{username}</Text>
+              {!isFeed && !showCommentInput && (
+                <div style={{ width: '100%', float: 'right' }}>
+                  <Flex float="right">
+                    {comment ? (
+                      <Tooltip label="Visible - remove status to hide tx">
+                        <div style={{ paddingTop: '4px' }}>
+                          <AiFillEye float="right" />
+                        </div>
+                      </Tooltip>
+                    ) : (
+                      <Tooltip label="Not visible - give this tx a status">
+                        <div style={{ paddingTop: '4px' }}>
+                          <AiFillEyeInvisible float="right" />
+                        </div>
+                      </Tooltip>
+                    )}
+
+                    <IconButton
+                      marginLeft="10px"
+                      float="right"
+                      h="23px"
+                      minWidth="28px"
+                      colorScheme="blue"
+                      aria-label="Search database"
+                      icon={<FiEdit2 />}
+                      onClick={() => setCommentInput(prev => !prev)}
+                    />
+                  </Flex>
+                </div>
+              )}
             </Flex>
-          </Box>
+            <Box>
+              <SimpleGrid>
+                <Text fontWeight="bold">Hash:</Text>
+                <Text
+                  textOverflow="ellipsis"
+                  overflow="hidden"
+                  whiteSpace="nowrap"
+                >
+                  {t.txHash}
+                </Text>
+              </SimpleGrid>
+              <SimpleGrid>
+                <Text fontWeight="bold">From:</Text>
+                <Text
+                  textOverflow="ellipsis"
+                  overflow="hidden"
+                  whiteSpace="nowrap"
+                >
+                  {t.src}
+                </Text>
+              </SimpleGrid>
+              <SimpleGrid>
+                <Text fontWeight="bold">To: </Text>
+                <Text
+                  textOverflow="ellipsis"
+                  overflow="hidden"
+                  whiteSpace="nowrap"
+                >
+                  {t.dst}
+                </Text>
+              </SimpleGrid>
+              <Flex>
+                <Text fontWeight="bold" marginRight="13px">
+                  Amount:{' '}
+                </Text>
+                <Text marginRight="13px">{t.txNumberSolTransfer}</Text>
+                <Text fontWeight="bold" marginRight="13px">
+                  Fee:{' '}
+                </Text>
+                <Text>{t.fee}</Text>
+              </Flex>
+            </Box>
+          </div>
+          <Text color="grey" fontSize="14px">
+            08:15am Feb 14
+          </Text>
         </div>
       </Flex>
     </Box>

@@ -1,0 +1,16 @@
+
+
+.tx-data-box {
+    visibility: hidden;
+    opacity: 0;
+    height: 0px;
+    transition: visibility 0s, opacity 1.0s linear;
+}
+
+.tx-box:hover .tx-data-box {    
+    visibility: visible;
+    opacity: 1;
+    height: 200px;
+}
+
+
