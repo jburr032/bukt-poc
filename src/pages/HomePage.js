@@ -10,6 +10,7 @@ import {
   Tab,
   TabPanel,
   Flex,
+  Link,
 } from '@chakra-ui/react';
 import TransactionBox from '../components/TransactionBox';
 import { selectPublicKey } from '../redux/userDataSlice';
@@ -17,6 +18,7 @@ import { useSelector } from 'react-redux';
 import { BiCalendar } from 'react-icons/bi';
 import Follower from '../components/Follower';
 import GridLayout from '../components/GridLayout';
+import randomWords from 'random-words';
 
 export const StatusesTab = () => {
   const [tx, setTx] = useState([]);
@@ -32,7 +34,23 @@ export const StatusesTab = () => {
       setWalletAddr(walletAddr);
       const { data } = await ChainService.getSolTransfers(accountAddress);
 
-      setTx(data.data.map(tx => ({ ...tx, comment: '' })));
+      setTx(
+        data.data.map(tx => ({
+          ...tx,
+          comment: (
+            <Text>
+              {randomWords({ exactly: 5, join: ' ' })}
+              {'  '}
+              <Link color="brand.text">
+                #
+                {randomWords({
+                  exactly: 1,
+                })}
+              </Link>
+            </Text>
+          ),
+        }))
+      );
     }
   };
 

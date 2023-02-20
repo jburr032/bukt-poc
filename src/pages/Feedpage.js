@@ -17,7 +17,6 @@ import GridLayout from '../components/GridLayout';
 import TransactionBox from '../components/TransactionBox';
 import ChainService from '../services/ChainServices';
 import { AiOutlineSearch } from 'react-icons/ai';
-import Follower from '../components/Follower';
 import randomWords from 'random-words';
 
 export default function FeedPage() {

@@ -90,20 +90,6 @@ export default function TransactionBox({ t, username, isFeed = false }) {
               {!isFeed && !showCommentInput && (
                 <div style={{ width: '100%', float: 'right' }}>
                   <Flex float="right">
-                    {comment ? (
-                      <Tooltip label="Visible - remove status to hide tx">
-                        <div style={{ paddingTop: '4px' }}>
-                          <AiFillEye float="right" />
-                        </div>
-                      </Tooltip>
-                    ) : (
-                      <Tooltip label="Not visible - give this tx a status">
-                        <div style={{ paddingTop: '4px' }}>
-                          <AiFillEyeInvisible float="right" />
-                        </div>
-                      </Tooltip>
-                    )}
-
                     <IconButton
                       marginLeft="10px"
                       float="right"
